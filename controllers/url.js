@@ -10,10 +10,12 @@ const handleGenerateNewShortURL = async (req, res) => {
 
   await URL.create({
     shortId: uniqueUrlId,
-    redirectedURL: body.url,
+    redirectURL: body.url,
     visitHistory: [],
   });
-  return res.json({ id: uniqueUrlId });
+  return res.render("home", {
+    id: uniqueUrlId,
+  })
 };
 
 const handleGetAnalytics = async (req, res) => {
@@ -41,7 +43,7 @@ const handleCreateEntry = async (req, res) => {
       },
     }
   );
-  res.redirect(entry.redirectedURL);
+  res.redirect(entry.redirectURL);
 }
 module.exports = {
   handleGenerateNewShortURL,
