@@ -6,16 +6,16 @@ const handleGenerateNewShortURL = async (req, res) => {
   if (!body.url) {
     return res.status(400).json({ error: "url is required" });
   }
-  const uniqueUrlId = shortid();
+  const shortId = shortid();
 
   await URL.create({
-    shortId: uniqueUrlId,
+    shortId: shortId,
     redirectURL: body.url,
     visitHistory: [],
   });
   return res.render("home", {
-    id: uniqueUrlId,
-  })
+    id: shortId,
+  });
 };
 
 const handleGetAnalytics = async (req, res) => {
@@ -44,7 +44,7 @@ const handleCreateEntry = async (req, res) => {
     }
   );
   res.redirect(entry.redirectURL);
-}
+};
 module.exports = {
   handleGenerateNewShortURL,
   handleGetAnalytics,
